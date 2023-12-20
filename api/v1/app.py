@@ -15,6 +15,7 @@ def teardown_db(exception):
     """closes the storage on teardown"""
     storage.close()
 
+
 @app.errorhandler(404)
 def not_found_error(error):
     """defines new not found page"""
@@ -25,6 +26,7 @@ def not_found_error(error):
         mimetype='application/json'
     )
     return response
+
 
 if __name__ == "__main__":
     host = os.getenv("HBNB_API_HOST", "0.0.0.0")
