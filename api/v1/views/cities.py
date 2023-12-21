@@ -1,4 +1,3 @@
-# api/v1/views/cities.py
 #!/usr/bin/python3
 """City views"""
 from flask import jsonify, abort, request
