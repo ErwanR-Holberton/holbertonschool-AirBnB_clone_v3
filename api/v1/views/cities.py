@@ -33,7 +33,7 @@ def get_city(city_id):
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'],
                  strict_slashes=False)
-def del_city(city_id):
+def delete_city(city_id):
     """Deletes a City object"""
     city = storage.get(City, city_id)
 
@@ -58,9 +58,8 @@ def create_city(state_id):
     req = request.get_json()
     if req is None:
         abort(400, 'Not a JSON')
-    if 'name' not in req or not isinstance(req['name'],
-                                           str) or not req['name'].strip():
-        abort(400, 'Invalid or missing city name')
+    if 'name' not in req or not isinstance(req['name'], str) or not req['name'].strip():
+        abort(400, 'Missing name')
 
     new_city = City(name=req['name'], state_id=state_id)
     new_city.save()
@@ -82,7 +81,7 @@ def update_city(city_id):
 
     for key, value in req.items():
         if key == 'name' and (not isinstance(value, str) or not value.strip()):
-            abort(400, 'Invalid city name')
+            abort(400, 'Missing name')
         elif key not in ['id', 'state_id', 'created_at', 'updated_at']:
             setattr(city, key, value)
 
