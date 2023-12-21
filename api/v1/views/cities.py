@@ -58,7 +58,8 @@ def create_city(state_id):
     req = request.get_json()
     if req is None:
         abort(400, 'Not a JSON')
-    if 'name' not in req or not isinstance(req['name'], str) or not req['name'].strip():
+    if 'name' not in req or not isinstance(req['name'],
+                                           str) or not req['name'].strip():
         abort(400, 'Invalid or missing city name')
 
     new_city = City(name=req['name'], state_id=state_id)
