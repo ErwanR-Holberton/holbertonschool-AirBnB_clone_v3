@@ -49,8 +49,14 @@ def del_place(place_id):
 
 
 @app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
-def create_place():
+def create_place(city_id):
     """creates a new place"""
+
+    city = storage.get(City, city_id)
+
+    if not city:
+        abort(404)
+
     req = request.get_json()
 
     if req is None:
@@ -60,7 +66,9 @@ def create_place():
     if 'user_id' not in req:
         abort(400, 'Missing user_id')
 
-    new_place = Place(name=req['name'])
+    name = req['name']
+    user_id = req['user_id']
+    new_place = Place(name=name, user_id=user_id, city_id=city_id)
     new_place.save()
 
     return jsonify(new_place.to_dict()), 201
