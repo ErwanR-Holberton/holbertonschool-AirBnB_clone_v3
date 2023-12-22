@@ -1,18 +1,18 @@
 #!/usr/bin/python3
 """view for amenities"""
 from flask import jsonify, abort, request
-from api.v1.views import app_views, storage
+from api.v1.views import app_views
+from models import storage
 from models.amenity import Amenity
 
 
 @app_views.route("/amenities", methods=["GET"], strict_slashes=False)
 def amenity_get_all():
-    am_list = []
-    am_obj = storage.all("Amenity")
-    for obj in am_obj.values():
-        am_list.append(obj.to_json())
+    """Retrieves the list of all Amenities objects"""
+    amenities = storage.all(Amenity).values()
+    amenities_list = [amenity.to_dict() for amenity in amenities]
 
-    return jsonify(am_list)
+    return jsonify(amenities_list)
 
 
 @app_views.route("/amenities", methods=["POST"], strict_slashes=False)
