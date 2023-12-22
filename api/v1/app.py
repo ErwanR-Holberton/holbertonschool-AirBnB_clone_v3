@@ -28,7 +28,7 @@ def not_found_error(error):
         status=404,
         mimetype='application/json'
     )
-    return response
+    return response, 404
 
 
 if __name__ == "__main__":
