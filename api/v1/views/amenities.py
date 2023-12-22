@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""view for amenities"""
 from flask import jsonify, abort, request
 from api.v1.views import app_views, storage
 from models.amenity import Amenity
