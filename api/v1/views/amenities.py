@@ -31,7 +31,7 @@ def amenity_by_id(amenity_id):
                  strict_slashes=False)
 def amenity_delete_by_id(amenity_id):
 
-    fetched_obj = storage.get("Amenity", str(amenity_id))
+    fetched_obj = storage.get(Amenity, str(amenity_id))
 
     if fetched_obj is None:
         abort(404)
@@ -66,7 +66,7 @@ def amenity_put(amenity_id):
     am_json = request.get_json(silent=True)
     if am_json is None:
         abort(400, 'Not a JSON')
-    fetched_obj = storage.get("Amenity", str(amenity_id))
+    fetched_obj = storage.get(Amenity, str(amenity_id))
     if fetched_obj is None:
         abort(404)
     for key, val in am_json.items():
