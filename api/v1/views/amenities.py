@@ -19,7 +19,7 @@ def amenity_get_all():
 def amenity_by_id(amenity_id):
     """get an amenity"""
 
-    fetched_obj = storage.get("Amenity", str(amenity_id))
+    fetched_obj = storage.get(Amenity, amenity_id)
 
     if fetched_obj is None:
         abort(404)
