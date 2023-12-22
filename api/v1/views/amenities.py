@@ -11,24 +11,25 @@ def amenity_get_all():
     """Retrieves the list of all Amenities objects"""
     amenities = storage.all(Amenity).values()
     amenities_list = [amenity.to_dict() for amenity in amenities]
-
     return jsonify(amenities_list)
 
 
 @app_views.route("/amenities", methods=["POST"], strict_slashes=False)
 def amenity_create():
+    """creates an amenity"""
+
     am_json = request.get_json(silent=True)
+
     if am_json is None:
         abort(400, 'Not a JSON')
     if "name" not in am_json:
         abort(400, 'Missing name')
 
-    new_am = Amenity(**am_json)
+    name = am_json['name']
+    new_am = Amenity(name=name)
     new_am.save()
-    resp = jsonify(new_am.to_json())
-    resp.status_code = 201
 
-    return resp
+    return jsonify(new_am.to_dict()), 201
 
 
 @app_views.route("/amenities/<amenity_id>",  methods=["GET"],
