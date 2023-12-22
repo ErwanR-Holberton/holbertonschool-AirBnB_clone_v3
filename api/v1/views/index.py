@@ -23,3 +23,9 @@ def get_stats():
         'users': storage.count(User)
     }
     return jsonify(stats)
+
+
+@app_views.route('/status', strict_slashes=False)
+def get_status():
+    """get the status"""
+    return jsonify({"status": "OK"})
