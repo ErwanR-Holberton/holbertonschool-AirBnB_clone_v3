@@ -4,6 +4,7 @@ from models.city import City
 from flask import jsonify, abort, request
 from models import storage
 from models.place import Place
+from models.user import User
 from api.v1.views import app_views
 
 
@@ -67,6 +68,12 @@ def create_place(city_id):
 
     name = req['name']
     user_id = req['user_id']
+
+    user = storage.get(User, user_id)
+
+    if not user:
+        abort(404)
+
     new_place = Place(name=name, user_id=user_id, city_id=city_id)
     new_place.save()
 
