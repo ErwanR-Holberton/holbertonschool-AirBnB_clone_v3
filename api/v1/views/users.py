@@ -46,10 +46,15 @@ def create_user():
 
     if req is None:
         abort(400, 'Not a JSON')
-    if 'name' not in req:
-        abort(400, 'Missing name')
+    if 'email' not in req:
+        abort(400, 'Missing email')
+    if 'password' not in req:
+        abort(400, 'Missing password')
 
-    new_user = User(name=req['name'])
+    email = req['email']
+    password = req['password']
+
+    new_user = User(email=email, password=password)
     new_user.save()
 
     return jsonify(new_user.to_dict()), 201
