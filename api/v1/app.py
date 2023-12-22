@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """starts a Flask web application"""
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from models import storage
 import os
@@ -22,13 +22,7 @@ def teardown_db(exception):
 @app.errorhandler(404)
 def not_found_error(error):
     """defines new not found page"""
-    response_data = '{\n\t"error": "Not found"\n}\n'
-    response = app.response_class(
-        response=response_data,
-        status=404,
-        mimetype='application/json'
-    )
-    return response, 404
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
