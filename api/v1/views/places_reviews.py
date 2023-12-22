@@ -22,7 +22,7 @@ def get_reviews(place_id):
     return jsonify(reviews_list)
 
 
-@app_views.route('reviews/<review_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/reviews/<review_id>', methods=['GET'], strict_slashes=False)
 def get_review(review_id=None):
     """return json of a review"""
     review = storage.get(Review, review_id)
@@ -84,10 +84,12 @@ def create_review(place_id):
 def update_review(review_id):
     """update a review"""
     review = storage.get(Review, review_id)
+
     if not review:
         abort(404)
 
     req = request.get_json()
+    
     if req is None:
         abort(400, 'Not a JSON')
 
