@@ -14,11 +14,12 @@ from models.user import User
 @app_views.route('/stats', strict_slashes=False)
 def get_stats():
     """the client gets the status if the server is reachable and working"""
-    stats = {}
-    stats["amenities"] = storage.count(Amenity)
-    stats["cities"] = storage.count(City)
-    stats["places"] = storage.count(Place)
-    stats["reviews"] = storage.count(Review)
-    stats["states"] = storage.count(State)
-    stats["users"] = storage.count(User)
-    return stats
+    stats = {
+        'amenities': storage.count(Amenity),
+        'cities': storage.count(City),
+        'places': storage.count(Place),
+        'reviews': storage.count(Review),
+        'states': storage.count(State),
+        'users': storage.count(User)
+    }
+    return jsonify(stats)
