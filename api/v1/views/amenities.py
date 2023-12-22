@@ -35,13 +35,14 @@ def amenity_create():
 @app_views.route("/amenities/<amenity_id>",  methods=["GET"],
                  strict_slashes=False)
 def amenity_by_id(amenity_id):
+    """get an amenity"""
 
     fetched_obj = storage.get("Amenity", str(amenity_id))
 
     if fetched_obj is None:
         abort(404)
 
-    return jsonify(fetched_obj.to_json())
+    return jsonify(fetched_obj.to_dict())
 
 
 @app_views.route("/amenities/<amenity_id>",  methods=["PUT"],
