@@ -89,7 +89,7 @@ def update_review(review_id):
         abort(404)
 
     req = request.get_json()
-    
+
     if req is None:
         abort(400, 'Not a JSON')
 
