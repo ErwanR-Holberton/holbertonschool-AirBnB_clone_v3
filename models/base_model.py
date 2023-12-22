@@ -23,8 +23,8 @@ class BaseModel:
     """The BaseModel class from which future classes will be derived"""
     if models.storage_t == "db":
         id = Column(String(60), primary_key=True)
-        created_at = Column(DateTime, default=datetime.now())
-        updated_at = Column(DateTime, default=datetime.now())
+        created_at = Column(DateTime, default=datetime.utcnow)
+        updated_at = Column(DateTime, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
         """Initialization of the base model"""
@@ -54,7 +54,7 @@ class BaseModel:
 
     def save(self):
         """updates the attribute 'updated_at' with the current datetime"""
-        self.updated_at = datetime.now()()
+        self.updated_at = datetime.utcnow()
         models.storage.new(self)
         models.storage.save()
 
